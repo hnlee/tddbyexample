@@ -28,9 +28,13 @@ class Money implements Expression {
     public String toString() {
         return amount + " " + currency;
     }
+    public Money reduce(String to) {
+        return this;
+    }
 }
 
 interface Expression {
+    Money reduce(String to);
 }
 
 class Sum implements Expression {
@@ -48,7 +52,6 @@ class Sum implements Expression {
 
 class Bank {
     Money reduce(Expression source, String to) {
-        Sum sum = (Sum) source;
-        return sum.reduce(to);
+        return source.reduce(to);
     }
 }
