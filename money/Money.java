@@ -18,10 +18,10 @@ class Money implements Expression {
     static Money franc(int amount) {
         return new Money(amount, "CHF");
     }
-    Money times(int multiplier) {
+    Expression times(int multiplier) {
         return new Money(amount * multiplier, currency);
     }
-    Expression plus(Money addend) {
+    public Expression plus(Expression addend) {
         return new Sum(this, addend);
     }
     String currency() {
@@ -38,12 +38,13 @@ class Money implements Expression {
 
 interface Expression {
     Money reduce(Bank bank, String to);
+    Expression plus(Expression addend);
 }
 
 class Sum implements Expression {
-    Money augend;
-    Money addend;
-    Sum(Money augend, Money addend) {
+    Expression augend;
+    Expression addend;
+    Sum(Expression augend, Expression addend) {
         this.augend = augend;
         this.addend = addend;
     }
@@ -51,6 +52,9 @@ class Sum implements Expression {
         int amount = augend.reduce(bank, to).amount 
                    + addend.reduce(bank, to).amount;
         return new Money(amount, to);
+    }
+    public Expression plus(Expression addend) {
+        return null;
     }
 }
 
