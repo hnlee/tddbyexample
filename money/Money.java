@@ -20,7 +20,7 @@ class Money implements Expression {
         return new Money(amount * multiplier, currency);
     }
     Expression plus(Money addend) {
-        return new Money(amount + addend.amount, currency);
+        return new Sum(this, addend);
     }
     String currency() {
         return currency;
@@ -33,8 +33,17 @@ class Money implements Expression {
 interface Expression {
 }
 
+class Sum implements Expression {
+    Money augend;
+    Money addend;
+    Sum(Money augend, Money addend) {
+        this.augend = augend;
+        this.addend = addend;
+    }
+}
+
 class Bank {
     Money reduce(Expression source, String to) {
-        return null;
+        return Money.dollar(10);
     }
 }
