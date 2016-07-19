@@ -28,15 +28,14 @@ class Money implements Expression {
     public String toString() {
         return amount + " " + currency;
     }
-    public Money reduce(String to) {
-        int rate = (currency.equals("CHF") && 
-                    to.equals("USD")) ? 2 : 1;
+    public Money reduce(Bank bank, String to) {
+        int rate = bank.rate(currency, to);
         return new Money(amount / rate, to);
     }
 }
 
 interface Expression {
-    Money reduce(String to);
+    Money reduce(Bank bank, String to);
 }
 
 class Sum implements Expression {
@@ -46,7 +45,7 @@ class Sum implements Expression {
         this.augend = augend;
         this.addend = addend;
     }
-    public Money reduce(String to) {
+    public Money reduce(Bank bank, String to) {
         int amount = augend.amount + addend.amount;
         return new Money(amount, to);
     }
@@ -54,8 +53,12 @@ class Sum implements Expression {
 
 class Bank {
     Money reduce(Expression source, String to) {
-        return source.reduce(to);
+        return source.reduce(this, to);
     }
     void addRate(String from, String to, int rate) {
+    }
+    int rate(String from, String to) {
+        return (from.equals("CHF") && to.equals("USD")) ?
+               2 : 1;
     }
 }
