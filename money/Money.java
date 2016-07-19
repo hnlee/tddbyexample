@@ -54,7 +54,7 @@ class Sum implements Expression {
         return new Money(amount, to);
     }
     public Expression plus(Expression addend) {
-        return null;
+        return new Sum(this, addend);
     }
 }
 
