@@ -5,6 +5,7 @@ class TestCase {
     String methodName;
     Boolean wasSetUp;
     Boolean wasRun;
+    String log;
     TestCase(String name) {
         String[] classMethodName = name.split("\\.");
         this.className = classMethodName[0];
@@ -24,6 +25,7 @@ testClass.getDeclaredMethod(methodName);
     }
     void setUp() {
         wasSetUp = true;
+        log = "setUp ";
     }
 }
 

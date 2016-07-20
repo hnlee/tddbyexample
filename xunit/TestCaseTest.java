@@ -14,6 +14,6 @@ public class TestCaseTest {
     public void testSetUp() {
         TestCase test = new TestCase("TestClass.testMethod");
         test.run();
-        assertTrue(test.wasSetUp);
+        assertTrue("setUp " == test.log);
     }
 }
