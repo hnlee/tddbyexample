@@ -3,17 +3,9 @@ import org.junit.Test;
 
 public class TestCaseTest {
     @Test
-    public void testWasRun() {
-        TestCase test = new TestCase("TestClass.testMethod");
-        assertEquals(null, test.wasRun);
-        test.run();
-        assertTrue(test.wasRun);
-    }
-    
-    @Test
-    public void testSetUp() {
+    public void testTemplateMethod() {
         TestCase test = new TestCase("TestClass.testMethod");
         test.run();
-        assertTrue("setUp " == test.log);
+        assertEquals("setUp run ", test.log);
     }
 }

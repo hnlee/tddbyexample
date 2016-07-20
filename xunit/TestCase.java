@@ -3,8 +3,6 @@ import java.lang.reflect.*;
 class TestCase {
     String className;
     String methodName;
-    Boolean wasSetUp;
-    Boolean wasRun;
     String log;
     TestCase(String name) {
         String[] classMethodName = name.split("\\.");
@@ -19,12 +17,11 @@ class TestCase {
 testClass.getDeclaredMethod(methodName);
             Object testInstance = testClass.newInstance();
             testMethod.invoke(testInstance);
-            wasRun = true;
+            log = log + "run ";
         } catch (Exception e) {
         }
     }
     void setUp() {
-        wasSetUp = true;
         log = "setUp ";
     }
 }
