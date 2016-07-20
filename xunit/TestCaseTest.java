@@ -8,4 +8,10 @@ public class TestCaseTest {
         test.run();
         assertEquals("setUp testMethod tearDown ", test.log);
     }
+    @Test
+    public void testResult() {
+        TestCase test = new TestCase("TestClass.testMethod");
+        TestResult result = test.run();
+        assertEquals("1 run, 0 failed", result.summary());
+    }
 }
