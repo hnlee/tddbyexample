@@ -11,10 +11,16 @@ class WasRun {
         this.methodName = classMethodName[1];
     }
     void run() {
-        Class<?> testClass = Class.forName(className);
-        Method testMethod = testClass.getMethod(methodName);
-        testMethod.invoke(testClass);
-        wasRun = "Passed";
+        try {
+            Class<?> testClass = Class.forName(className);
+            Method testMethod =
+testClass.getDeclaredMethod(methodName);
+            Object testInstance = testClass.newInstance();
+            testMethod.invoke(testInstance);
+            wasRun = "Passed";
+        } catch (Exception e) {
+            wasRun = "Not found";
+        }
     }
 }
 

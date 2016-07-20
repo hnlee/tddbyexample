@@ -4,7 +4,7 @@ import org.junit.Test;
 public class TestCaseTest {
     @Test
     public void testWasRun() {
-        WasRun test = new WasRun("testClass.testMethod");
+        WasRun test = new WasRun("TestClass.testMethod");
         assertEquals("Not run", test.wasRun);
         test.run();
         assertEquals("Passed", test.wasRun);
