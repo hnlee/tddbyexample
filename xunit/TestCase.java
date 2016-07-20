@@ -13,14 +13,18 @@ class TestCase {
         TestResult result = new TestResult();
         result.testStarted();
         setUp();
-        testMethod();
+        try {
+            testMethod();
+        } catch (Exception e) {
+            result.testFailed();
+        }
         tearDown();
         return result;
     }
     void setUp() {
         log = "setUp ";
     }
-    void testMethod() {
+    void testMethod() throws Exception {
         try {
             Class<?> cls = Class.forName(className);
             Method method =
@@ -29,6 +33,7 @@ cls.getDeclaredMethod(methodName);
             method.invoke(obj);
             log = log + "testMethod ";
         } catch (Exception e) {
+            throw e; 
         }
     } 
     void tearDown() {
@@ -38,18 +43,28 @@ cls.getDeclaredMethod(methodName);
 
 class TestResult {
     int runCount;
+    int errorCount;
     TestResult() {
         runCount = 0;
+        errorCount = 0;
     }
     void testStarted() {
         runCount++;
     }
+    void testFailed() {
+        errorCount++;
+    }
     String summary() {
-        return String.format("%d run, 0 failed", runCount);
+        return String.format("%d run, %d failed", 
+                             runCount,
+                             errorCount);
     }
 }
 
 class TestClass {
     public void testMethod() {
+    }
+    public void testBrokenMethod() throws Exception {
+        throw new Exception();
     }
 }

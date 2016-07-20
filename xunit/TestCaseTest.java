@@ -14,4 +14,17 @@ public class TestCaseTest {
         TestResult result = test.run();
         assertEquals("1 run, 0 failed", result.summary());
     }
+    @Test
+    public void testFailedResult() {
+        TestCase test = new TestCase("TestClass.testBrokenMethod");
+        TestResult result = test.run();
+        assertEquals("1 run, 1 failed", result.summary());
+    }
+    @Test
+    public void testFailedResultFormatting() {
+        TestResult result = new TestResult();
+        result.testStarted();
+        result.testFailed();
+        assertEquals("1 run, 1 failed", result.summary()); 
+    }
 }
