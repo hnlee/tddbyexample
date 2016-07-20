@@ -3,18 +3,11 @@ import java.lang.reflect.*;
 class TestCase {
     String className;
     String methodName;
+    String wasRun;
     TestCase(String name) {
         String[] classMethodName = name.split("\\.");
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
-    }
- 
-}
-
-class WasRun extends TestCase {
-    String wasRun;
-    WasRun(String name) {
-        super(name);
         this.wasRun = "Not run";
     }
     void run() {
@@ -24,11 +17,11 @@ class WasRun extends TestCase {
 testClass.getDeclaredMethod(methodName);
             Object testInstance = testClass.newInstance();
             testMethod.invoke(testInstance);
-            wasRun = "Passed";
+            wasRun = "Run";
         } catch (Exception e) {
-            wasRun = "Not found";
         }
     }
+ 
 }
 
 class TestClass {
