@@ -1,14 +1,21 @@
 import java.lang.reflect.*;
 
-class WasRun {
-    String wasRun;
+class TestCase {
     String className;
     String methodName;
-    WasRun(String name) {
-        this.wasRun = "Not run";
+    TestCase(String name) {
         String[] classMethodName = name.split("\\.");
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
+    }
+ 
+}
+
+class WasRun extends TestCase {
+    String wasRun;
+    WasRun(String name) {
+        super(name);
+        this.wasRun = "Not run";
     }
     void run() {
         try {
