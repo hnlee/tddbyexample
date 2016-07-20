@@ -10,10 +10,11 @@ class TestCase {
         this.methodName = classMethodName[1];
     }
     TestResult run() {
+        TestResult result = new TestResult();
+        result.testStarted();
         setUp();
         testMethod();
         tearDown();
-        TestResult result = new TestResult();
         return result;
     }
     void setUp() {
@@ -36,8 +37,15 @@ cls.getDeclaredMethod(methodName);
 }
 
 class TestResult {
+    int runCount;
+    TestResult() {
+        runCount = 0;
+    }
+    void testStarted() {
+        runCount++;
+    }
     String summary() {
-        return "1 run, 0 failed";
+        return String.format("%d run, 0 failed", runCount);
     }
 }
 
