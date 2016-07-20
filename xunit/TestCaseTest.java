@@ -6,6 +6,6 @@ public class TestCaseTest {
     public void testTemplateMethod() {
         TestCase test = new TestCase("TestClass.testMethod");
         test.run();
-        assertEquals("setUp run ", test.log);
+        assertEquals("setUp testMethod tearDown ", test.log);
     }
 }

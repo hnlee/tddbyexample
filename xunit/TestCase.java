@@ -9,20 +9,27 @@ class TestCase {
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
     }
-    public void run() {
+    void run() {
         setUp();
-        try {
-            Class<?> testClass = Class.forName(className);
-            Method testMethod =
-testClass.getDeclaredMethod(methodName);
-            Object testInstance = testClass.newInstance();
-            testMethod.invoke(testInstance);
-            log = log + "run ";
-        } catch (Exception e) {
-        }
+        testMethod();
+        tearDown();
     }
     void setUp() {
         log = "setUp ";
+    }
+    void testMethod() {
+        try {
+            Class<?> cls = Class.forName(className);
+            Method method =
+cls.getDeclaredMethod(methodName);
+            Object obj = cls.newInstance();
+            method.invoke(obj);
+            log = log + "testMethod ";
+        } catch (Exception e) {
+        }
+    } 
+    void tearDown() {
+        log = log + "tearDown "; 
     }
 }
 
