@@ -1,4 +1,5 @@
 import java.lang.reflect.*;
+import java.util.ArrayList;
 
 class TestCase {
     String className;
@@ -9,17 +10,16 @@ class TestCase {
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
     }
-    TestResult run() {
-        TestResult result = new TestResult();
+    void run(TestResult result) {
         result.testStarted();
         setUp();
         try {
             testMethod();
         } catch (Exception e) {
             result.testFailed();
+            log = log + e.getCause() + " ";
         }
         tearDown();
-        return result;
     }
     void setUp() {
         log = "setUp ";
@@ -27,8 +27,7 @@ class TestCase {
     void testMethod() throws Exception {
         try {
             Class<?> cls = Class.forName(className);
-            Method method =
-cls.getDeclaredMethod(methodName);
+            Method method = cls.getDeclaredMethod(methodName);
             Object obj = cls.newInstance();
             method.invoke(obj);
             log = log + "testMethod ";
@@ -55,9 +54,27 @@ class TestResult {
         errorCount++;
     }
     String summary() {
-        return String.format("%d run, %d failed", 
+        return String.format("%1$d run, %2$d failed", 
                              runCount,
                              errorCount);
+    }
+}
+
+class TestSuite {
+    ArrayList<TestCase> tests;
+    String log;
+    TestSuite() {
+        tests = new ArrayList<TestCase>();
+        log = "";
+    }
+    void add(TestCase test) {
+        tests.add(test);
+    }
+    void run(TestResult result) {
+        for (TestCase test : tests) {
+            test.run(result); 
+            log = log + test.log; 
+        }
     }
 }
 
