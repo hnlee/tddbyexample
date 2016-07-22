@@ -1,15 +1,20 @@
 import java.lang.reflect.*;
 import java.util.ArrayList;
 
+// Just some feedback
 class TestCase {
-    String className;
-    String methodName;
-    String log;
+    // Data members of a java class should be marked private by default, like so:
+    private String className;
+    private String methodName;
+    private String log;
+    
     TestCase(String name) {
         String[] classMethodName = name.split("\\.");
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
     }
+    // You should have whitespace between the methods
+    
     void run(TestResult result) {
         result.testStarted();
         setUp();
@@ -21,9 +26,11 @@ class TestCase {
         }
         tearDown();
     }
+    
     void setUp() {
         log = "setUp ";
     }
+    
     void testMethod() throws Exception {
         try {
             Class<?> cls = Class.forName(className);
@@ -35,11 +42,13 @@ class TestCase {
             throw e; 
         }
     } 
+    
     void tearDown() {
         log = log + "tearDown "; 
     }
 }
 
+// In general each of these should be a seperate file
 class TestResult {
     int runCount;
     int errorCount;
@@ -63,13 +72,16 @@ class TestResult {
 class TestSuite {
     ArrayList<TestCase> tests;
     String log;
+    
     TestSuite() {
         tests = new ArrayList<TestCase>();
         log = "";
     }
+    
     void add(TestCase test) {
         tests.add(test);
     }
+    
     void run(TestResult result) {
         for (TestCase test : tests) {
             test.run(result); 
@@ -78,6 +90,7 @@ class TestSuite {
     }
 }
 
+// If test class is only used witwh tests, it should be packaged with it.
 class TestClass {
     public void testMethod() {
     }
