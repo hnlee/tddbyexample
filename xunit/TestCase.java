@@ -2,9 +2,9 @@ import java.lang.reflect.*;
 import java.util.ArrayList;
 
 class TestCase {
-    String className;
-    String methodName;
-    String log;
+    private String className;
+    private String methodName;
+    private String log;
     TestCase(String name) {
         String[] classMethodName = name.split("\\.");
         this.className = classMethodName[0];
@@ -41,6 +41,10 @@ class TestCase {
 
     void tearDown() {
         log = log + "tearDown "; 
+    }
+
+    String getLog() {
+        return log;
     }
 }
 

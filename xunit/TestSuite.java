@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 class TestSuite {
-    ArrayList<TestCase> tests;
-    String log;
+    private ArrayList<TestCase> tests;
+    private String log;
 
     TestSuite() {
         tests = new ArrayList<TestCase>();
@@ -16,8 +16,12 @@ class TestSuite {
     void run(TestResult result) {
         for (TestCase test : tests) {
             test.run(result); 
-            log = log + test.log; 
+            log = log + test.getLog(); 
         }
+    }
+
+    String getLog() {
+        return log;
     }
 }
 

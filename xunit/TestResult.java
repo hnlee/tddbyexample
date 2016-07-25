@@ -1,6 +1,6 @@
 class TestResult {
-    int runCount;
-    int errorCount;
+    private int runCount;
+    private int errorCount;
 
     TestResult() {
         runCount = 0;

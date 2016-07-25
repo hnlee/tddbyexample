@@ -15,7 +15,7 @@ public class TestCaseTest {
         TestCase test = new TestCase("TestClass.testMethod");
         TestResult result = new TestResult();
         test.run(result);
-        assertEquals("setUp testMethod tearDown ", test.log);
+        assertEquals("setUp testMethod tearDown ", test.getLog());
     }
 
     @Test
@@ -50,6 +50,6 @@ public class TestCaseTest {
         TestResult result = new TestResult();
         suite.run(result);
         assertEquals("2 run, 1 failed", result.summary());
-        assertEquals("setUp testMethod tearDown setUp java.lang.Exception tearDown ", suite.log);
+        assertEquals("setUp testMethod tearDown setUp java.lang.Exception tearDown ", suite.getLog());
     }
 }
