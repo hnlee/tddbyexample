@@ -10,6 +10,7 @@ class TestCase {
         this.className = classMethodName[0];
         this.methodName = classMethodName[1];
     }
+
     void run(TestResult result) {
         result.testStarted();
         setUp();
@@ -21,9 +22,11 @@ class TestCase {
         }
         tearDown();
     }
+
     void setUp() {
         log = "setUp ";
     }
+
     void testMethod() throws Exception {
         try {
             Class<?> cls = Class.forName(className);
@@ -35,53 +38,10 @@ class TestCase {
             throw e; 
         }
     } 
+
     void tearDown() {
         log = log + "tearDown "; 
     }
 }
 
-class TestResult {
-    int runCount;
-    int errorCount;
-    TestResult() {
-        runCount = 0;
-        errorCount = 0;
-    }
-    void testStarted() {
-        runCount++;
-    }
-    void testFailed() {
-        errorCount++;
-    }
-    String summary() {
-        return String.format("%1$d run, %2$d failed", 
-                             runCount,
-                             errorCount);
-    }
-}
 
-class TestSuite {
-    ArrayList<TestCase> tests;
-    String log;
-    TestSuite() {
-        tests = new ArrayList<TestCase>();
-        log = "";
-    }
-    void add(TestCase test) {
-        tests.add(test);
-    }
-    void run(TestResult result) {
-        for (TestCase test : tests) {
-            test.run(result); 
-            log = log + test.log; 
-        }
-    }
-}
-
-class TestClass {
-    public void testMethod() {
-    }
-    public void testBrokenMethod() throws Exception {
-        throw new Exception();
-    }
-}

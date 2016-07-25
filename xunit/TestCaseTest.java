@@ -17,6 +17,7 @@ public class TestCaseTest {
         test.run(result);
         assertEquals("setUp testMethod tearDown ", test.log);
     }
+
     @Test
     public void testResult() {
         TestCase test = new TestCase("TestClass.testMethod");
@@ -24,6 +25,7 @@ public class TestCaseTest {
         test.run(result);
         assertEquals("1 run, 0 failed", result.summary());
     }
+
     @Test
     public void testFailedResult() {
         TestCase test = new TestCase("TestClass.testBrokenMethod");
@@ -31,6 +33,7 @@ public class TestCaseTest {
         test.run(result);
         assertEquals("1 run, 1 failed", result.summary());
     }
+
     @Test
     public void testFailedResultFormatting() {
         TestResult result = new TestResult();
@@ -38,6 +41,7 @@ public class TestCaseTest {
         result.testFailed();
         assertEquals("1 run, 1 failed", result.summary()); 
     }
+
     @Test
     public void testTestSuite() {
         TestSuite suite = new TestSuite();
