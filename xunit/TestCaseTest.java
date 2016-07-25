@@ -2,6 +2,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestCaseTest {
+    class TestClass {
+        public void testMethod() {
+        }
+        public void testBrokenMethod() throws Exception {
+            throw new Exception();
+        }
+    }
+
     @Test
     public void testTemplateMethod() {
         TestCase test = new TestCase("TestClass.testMethod");
